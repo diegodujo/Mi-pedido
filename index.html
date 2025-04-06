@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido por WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    h1 { text-align: center; }
+    .producto { margin-bottom: 10px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input[type="number"] { width: 60px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; display: block; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Hacé tu pedido</h1>
+  <form id="pedidoForm">
+    <div class="producto"><label>Acelga 450g ($1.955)</label><input type="number" name="Acelga 450g" min="0"></div>
+    <div class="producto"><label>Espinaca 400g ($1.940)</label><input type="number" name="Espinaca 400g" min="0"></div>
+    <div class="producto"><label>Milanesas Soja 290g ($1.644)</label><input type="number" name="Milanesas Soja 290g" min="0"></div>
+    <div class="producto"><label>Milanesas Soja 560g ($3.488)</label><input type="number" name="Milanesas Soja 560g" min="0"></div>
+    <div class="producto"><label>Brócoli 300g ($2.385)</label><input type="number" name="Brócoli 300g" min="0"></div>
+    <div class="producto"><label>Formitas Pollo 350g ($2.835)</label><input type="number" name="Formitas Pollo 350g" min="0"></div>
+    <div class="producto"><label>Espinaca 500g ($2.637)</label><input type="number" name="Espinaca 500g" min="0"></div>
+    <div class="producto"><label>Acelga 500g ($2.230)</label><input type="number" name="Acelga 500g" min="0"></div>
+    <div class="producto"><label>Brócoli 400g ($3.280)</label><input type="number" name="Brócoli 400g" min="0"></div>
+    <div class="producto"><label>Choclo 300g ($1.837)</label><input type="number" name="Choclo 300g" min="0"></div>
+    <div class="producto"><label>Mix Primavera 400g ($2.809)</label><input type="number" name="Mix Primavera 400g" min="0"></div>
+    <div class="producto"><label>Arvejas 300g ($2.130)</label><input type="number" name="Arvejas 300g" min="0"></div>
+    <div class="producto"><label>Milanesas Caseras 330g ($2.161)</label><input type="number" name="Milanesas Caseras 330g" min="0"></div>
+    <div class="producto"><label>Milanesas Soja Calabaza 330g ($2.186)</label><input type="number" name="Milanesas Soja Calabaza 330g" min="0"></div>
+    <div class="producto"><label>Milanesas Soja Espinaca 330g ($2.186)</label><input type="number" name="Milanesas Soja Espinaca 330g" min="0"></div>
+    <div class="producto"><label>Medallones Pollo x4 ($3.797)</label><input type="number" name="Medallones Pollo x4" min="0"></div>
+    <div class="producto"><label>Supremitas 480g ($5.646)</label><input type="number" name="Supremitas 480g" min="0"></div>
+    <div class="producto"><label>Filetes Merluza 500g ($6.182)</label><input type="number" name="Filetes Merluza 500g" min="0"></div>
+    <div class="producto"><label>Medallones Merluza x4 ($4.144)</label><input type="number" name="Medallones Merluza x4" min="0"></div>
+    <div class="producto"><label>Baston Merluza 300g ($2.456)</label><input type="number" name="Baston Merluza 300g" min="0"></div>
+    <div class="producto"><label>Papas Clásicas 700g ($2.509)</label><input type="number" name="Papas Clásicas 700g" min="0"></div>
+    <div class="producto"><label>Noisettes 500g ($3.103)</label><input type="number" name="Noisettes 500g" min="0"></div>
+    <div class="producto"><label>Papas Smiles 600g ($3.912)</label><input type="number" name="Papas Smiles 600g" min="0"></div>
+    <div class="producto"><label>Milanesas Caseras 660g ($3.809)</label><input type="number" name="Milanesas Caseras 660g" min="0"></div>
+    <div class="producto"><label>Milanesas Arroz y Vegetales x4 ($2.700)</label><input type="number" name="Milanesas Arroz y Vegetales x4" min="0"></div>
+    <div class="producto"><label>Milanesas Espinaca 330g ($2.690)</label><input type="number" name="Milanesas Espinaca 330g" min="0"></div>
+    <div class="producto"><label>Nuggets 400g ($4.721)</label><input type="number" name="Nuggets 400g" min="0"></div>
+    <div class="producto"><label>Nuggets 900g ($9.649)</label><input type="number" name="Nuggets 900g" min="0"></div>
+    <div class="producto"><label>Patitas 400g ($4.122)</label><input type="number" name="Patitas 400g" min="0"></div>
+    <div class="producto"><label>Patitas 1 kilo ($11.094)</label><input type="number" name="Patitas 1 kilo" min="0"></div>
+    <div class="producto"><label>Suprema Pollo x4 ($4.843)</label><input type="number" name="Suprema Pollo x4" min="0"></div>
+    <div class="producto"><label>Suprema Espinaca y Queso x4 ($4.752)</label><input type="number" name="Suprema Espinaca y Queso x4" min="0"></div>
+    <button type="submit">Enviar por WhatsApp</button>
+  </form>
+  <script>
+    const form = document.getElementById('pedidoForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const telefono = '541135012333';
+      let mensaje = 'Hola, quiero hacer un pedido:%0A';
+      let hayPedido = false;
+      const inputs = form.querySelectorAll('input');
+      inputs.forEach(input => {
+        const cantidad = parseInt(input.value);
+        if (cantidad && cantidad > 0) {
+          mensaje += `- ${input.name} x${cantidad}%0A`;
+          hayPedido = true;
+        }
+      });
+      if (hayPedido) {
+        const url = `https://wa.me/${telefono}?text=${mensaje}`;
+        window.open(url, '_blank');
+      } else {
+        alert('Por favor seleccioná al menos un producto.');
+      }
+    });
+  </script>
+</body>
+</html>
